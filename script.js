@@ -79,6 +79,9 @@ new Vue({
         }
       });
     },
+    giveup: function() {
+      this.gameOn = false;
+    },
     checkFinish: function() {
       if (this.health.me <= 0 || this.health.monster <= 0) {
         if (this.health.me <= 0 && this.health.monster <= 0) {
