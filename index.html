@@ -54,12 +54,30 @@
           </div>
         </div>
       </div>
-      <div class="btn-group btn-group-lg d-flex justify-content-center mt-5" role="group" aria-label="Action Buttons">
+      <div class="btn-group btn-group-lg d-flex justify-content-center my-5" role="group" aria-label="Action Buttons">
         <button type="button" class="btn btn-primary flex-fill" @click="attack">Attack</button>
         <button type="button" class="btn btn-info flex-fill">Special Attack</button>
         <button type="button" class="btn btn-success flex-fill" @click="heal">Heal</button>
         <button type="button" class="btn btn-danger flex-fill" @click="endGame">Give up</button>
       </div>
+
+
+
+      <table class="table table-striped">
+        <tbody>
+          <tr v-for="message in messages">
+            <td class="text-left">
+              {{ message.myAction.text }}
+              <span class="badge badge-pill badge-dark float-right">{{ message.myAction.value }}</span>
+            </td>
+            <td :class="['text-center', messageClass(message.actionName)]">{{ message.actionName }}</td>
+            <td class="text-right">
+                {{ message.monsterAction.text }}
+                <span class="badge badge-pill badge-dark float-left">{{ message.monsterAction.value }}</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </template>
   </div>
 

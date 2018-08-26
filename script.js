@@ -17,7 +17,8 @@ new Vue({
   el: '#app',
   data: {
     health: {},
-    gameOn: false
+    gameOn: false,
+    messages: []
   },
   computed: {
     normalizedHealth: function() {
@@ -31,12 +32,37 @@ new Vue({
   },
   methods: {
     attack: function() {
-      this.health.me -= AppUtis.randNumber(10);
-      this.health.monster -= AppUtis.randNumber(10);
+      var myDamage = AppUtis.randNumber(10);
+      var monsterDamage = AppUtis.randNumber(10);
+      this.health.me -= monsterDamage;
+      this.health.monster -= myDamage;
+      this.broadcast({
+        actionName: 'Attack',
+        myAction: {
+          text: 'Your attack damaged the monster by ' + myDamage,
+          value: myDamage
+        },
+        monsterAction: {
+          text: "The monster's attack damaged you by " + monsterDamage,
+          value: monsterDamage
+        }
+      });
     },
     heal: function() {
-      this.health.me += AppUtis.randNumber(10);
-      this.health.me -= AppUtis.randNumber(10);
+      var myHeal = AppUtis.randNumber(20);
+      var monsterDamage = AppUtis.randNumber(10);
+      this.health.me = this.health.me + myHeal - monsterDamage;
+      this.broadcast({
+        actionName: 'Heal',
+        myAction: {
+          text: 'You healed your health by ' + myHeal,
+          value: myHeal
+        },
+        monsterAction: {
+          text: "The monster's attack damaged you by " + monsterDamage,
+          value: monsterDamage
+        }
+      });
     },
     startGame: function() {
       this.health = {
@@ -61,6 +87,21 @@ new Vue({
       return {
         width: health + '%'
       };
+    },
+    broadcast: function(message) {
+      this.messages.unshift({
+        actionName: message.actionName,
+        myAction: message.myAction,
+        monsterAction: message.monsterAction
+      });
+    },
+    messageClass: function(actionName) {
+      actionName = actionName.toLowerCase().replace(' ', '');
+      return {
+        attack: 'table-primary',
+        specialattack: 'table-info',
+        heal: 'table-success'
+      }[actionName];
     }
   }
 })
