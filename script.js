@@ -64,7 +64,7 @@ new Vue({
       this.usedSpecialAttack = true;
     },
     heal: function() {
-      var myHeal = AppUtis.randNumber(20);
+      var myHeal = AppUtis.randNumber(15);
       var monsterDamage = AppUtis.randNumber(10);
       this.health.me = this.health.me + myHeal - monsterDamage;
       this.broadcast({
