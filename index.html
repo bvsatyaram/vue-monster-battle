@@ -14,22 +14,45 @@
       Monster Battle
       <small class="text-muted">with Vue.js</small>
     </h1>
-    <div class="row">
-      <div class="col-sm">
-        <h2 class="display-3">You</h2>
-        <p>{{ normalizedHealth.me }}</p>
+    <template v-if="!gameOn">
+      <div class="jumbotron">
+        <h2 class="display-4">Rules:</h1>
+        <p class="lead">Test your luck by checking how quick can you kill a monster in a luck-based battle. Of course, you can create your own strategy to fight against your bad luck, when needed!</p>
+        <dl class="row">
+          <dt class="col-sm-3">Attack</dt>
+          <dd class="col-sm-9">Both you and the moster take a random damage between 1 and 10.</dd>
+          <dt class="col-sm-3">Special Attack</dt>
+          <dd class="col-sm-9">You take a random damage between 1 and 10, while the moster takes a random damage between 1 and 20. This can be used only one per game.</dd>
+          <dt class="col-sm-3">Heal</dt>
+          <dd class="col-sm-9">You taka a random damage between 1 and 10. You don't attack the moster. Instead, you heal yourself with a random health between 1 and 20.</dd>
+          <dt class="col-sm-3">Give up</dt>
+          <dd class="col-sm-9">Feeling unlucky? Just giveup the current game and consider playing another game.</dd>
+        </dl>
+        <hr class="my-4">
+        <div class="text-center">
+          <p class="lead">Ready to test your luck?</p>
+          <button type="button" class="btn btn-lg btn-dark" @click="startGame">Start a Game</button>
+        </div>
       </div>
-      <div class="col-sm">
-        <h2 class="display-3">Monster</h2>
-        <p>{{ normalizedHealth.monster }}</p>
+    </template>
+    <template v-if="gameOn">
+      <div class="row">
+        <div class="col-sm">
+          <h2 class="display-3">You</h2>
+          <p>{{ normalizedHealth.me }}</p>
+        </div>
+        <div class="col-sm">
+          <h2 class="display-3">Monster</h2>
+          <p>{{ normalizedHealth.monster }}</p>
+        </div>
       </div>
-    </div>
-    <div class="btn-group btn-group-lg d-flex justify-content-center" role="group" aria-label="Action Buttons">
-      <button type="button" class="btn btn-primary flex-fill" @click="attack">Attack</button>
-      <button type="button" class="btn btn-info flex-fill">Special Attack</button>
-      <button type="button" class="btn btn-success flex-fill" @click="heal">Heal</button>
-      <button type="button" class="btn btn-danger flex-fill">Give up</button>
-    </div>
+      <div class="btn-group btn-group-lg d-flex justify-content-center" role="group" aria-label="Action Buttons">
+        <button type="button" class="btn btn-primary flex-fill" @click="attack">Attack</button>
+        <button type="button" class="btn btn-info flex-fill">Special Attack</button>
+        <button type="button" class="btn btn-success flex-fill" @click="heal">Heal</button>
+        <button type="button" class="btn btn-danger flex-fill" @click="endGame">Give up</button>
+      </div>
+    </template>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>

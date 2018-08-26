@@ -16,10 +16,7 @@ var AppUtis = {
 new Vue({
   el: '#app',
   data: {
-    health: {
-      me: 100,
-      monster: 100
-    }
+    gameOn: false
   },
   computed: {
     normalizedHealth: function() {
@@ -39,6 +36,16 @@ new Vue({
     heal: function() {
       this.health.me += AppUtis.randNumber(10);
       this.health.me -= AppUtis.randNumber(10);
+    },
+    startGame: function() {
+      this.health = {
+        me: 100,
+        monster: 100
+      };
+      this.gameOn = true;
+    },
+    endGame: function() {
+      this.gameOn = false;
     }
   }
 })
