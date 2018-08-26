@@ -18,7 +18,8 @@ new Vue({
   data: {
     health: {},
     gameOn: false,
-    messages: []
+    messages: [],
+    usedSpecialAttack: false
   },
   computed: {
     normalizedHealth: function() {
@@ -31,13 +32,16 @@ new Vue({
     }
   },
   methods: {
-    attack: function() {
-      var myDamage = AppUtis.randNumber(10);
+    attack: function(myMaxDamage) {
+      if (typeof(myMaxDamage) != 'number') {
+        myMaxDamage = 10;
+      }
+      var myDamage = AppUtis.randNumber(myMaxDamage);
       var monsterDamage = AppUtis.randNumber(10);
       this.health.me -= monsterDamage;
       this.health.monster -= myDamage;
       this.broadcast({
-        actionName: 'Attack',
+        actionName: myMaxDamage == 20 ? 'Special Attack' : 'Attack',
         myAction: {
           text: 'Your attack damaged the monster by ' + myDamage,
           value: myDamage
@@ -47,6 +51,10 @@ new Vue({
           value: monsterDamage
         }
       });
+    },
+    specialAttack: function() {
+      this.attack(20);
+      this.usedSpecialAttack = true;
     },
     heal: function() {
       var myHeal = AppUtis.randNumber(20);
@@ -70,6 +78,7 @@ new Vue({
         monster: 100
       };
       this.gameOn = true;
+      this.usedSpecialAttack = false;
     },
     endGame: function() {
       this.gameOn = false;

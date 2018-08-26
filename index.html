@@ -56,7 +56,7 @@
       </div>
       <div class="btn-group btn-group-lg d-flex justify-content-center my-5" role="group" aria-label="Action Buttons">
         <button type="button" class="btn btn-primary flex-fill" @click="attack">Attack</button>
-        <button type="button" class="btn btn-info flex-fill">Special Attack</button>
+        <button type="button" class="btn btn-info flex-fill" @click="specialAttack" :disabled="usedSpecialAttack">Special Attack</button>
         <button type="button" class="btn btn-success flex-fill" @click="heal">Heal</button>
         <button type="button" class="btn btn-danger flex-fill" @click="endGame">Give up</button>
       </div>
