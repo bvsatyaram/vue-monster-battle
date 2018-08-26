@@ -10,6 +10,11 @@ var AppUtis = {
     }
 
     return num;
+  },
+  delayAnnounce: function(text, delay) {
+    setTimeout(function() {
+      alert(text);
+    }, delay)
   }
 }
 
@@ -25,6 +30,7 @@ new Vue({
     normalizedHealth: function() {
       this.health.me = AppUtis.normalizeNumber(this.health.me, 0, 100);
       this.health.monster = AppUtis.normalizeNumber(this.health.monster, 0, 100);
+
       return {
         me:  this.health.me,
         monster: this.health.monster
@@ -51,6 +57,7 @@ new Vue({
           value: monsterDamage
         }
       });
+      this.checkFinish();
     },
     specialAttack: function() {
       this.attack(20);
@@ -72,6 +79,25 @@ new Vue({
         }
       });
     },
+    checkFinish: function() {
+      if (this.health.me <= 0 || this.health.monster <= 0) {
+        if (this.health.me <= 0 && this.health.monster <= 0) {
+          AppUtis.delayAnnounce("It's a draw!", 300);
+        } else {
+          if (this.health.me <= 0) {
+            AppUtis.delayAnnounce('You loose!', 300);
+          }
+          if (this.health.monster <= 0) {
+            AppUtis.delayAnnounce('You win!', 300);
+          }
+        }
+
+        var vueCxt = this;
+        setTimeout(function() {
+          vueCxt.gameOn = false;
+        }, 300);
+      }
+    },
     startGame: function() {
       this.health = {
         me: 100,
@@ -79,6 +105,7 @@ new Vue({
       };
       this.gameOn = true;
       this.usedSpecialAttack = false;
+      this.messages = [];
     },
     endGame: function() {
       this.gameOn = false;
