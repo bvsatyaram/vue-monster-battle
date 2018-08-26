@@ -16,6 +16,7 @@ var AppUtis = {
 new Vue({
   el: '#app',
   data: {
+    health: {},
     gameOn: false
   },
   computed: {
@@ -46,6 +47,20 @@ new Vue({
     },
     endGame: function() {
       this.gameOn = false;
+    },
+    healthBarClasses: function(health) {
+      var classes = ['progress-bar'];
+      var contextualClasses = ['bg-danger', 'bg-warning', 'bg-info' ,'bg-success'];
+      if (health == 100) {
+        health = 99;
+      }
+      classes.push(contextualClasses[Math.floor(health / 25)]);
+      return classes;
+    },
+    healthBarStyles: function(health) {
+      return {
+        width: health + '%'
+      };
     }
   }
 })

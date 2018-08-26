@@ -39,14 +39,22 @@
       <div class="row">
         <div class="col-sm">
           <h2 class="display-3">You</h2>
-          <p>{{ normalizedHealth.me }}</p>
+          <div class="health-progress progress">
+            <div :class="healthBarClasses(normalizedHealth.me)" role="progressbar" :style="healthBarStyles(normalizedHealth.me)" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                {{ normalizedHealth.me }}
+            </div>
+          </div>
         </div>
         <div class="col-sm">
           <h2 class="display-3">Monster</h2>
-          <p>{{ normalizedHealth.monster }}</p>
+          <div class="health-progress progress">
+            <div :class="healthBarClasses(normalizedHealth.monster)" role="progressbar" :style="healthBarStyles(normalizedHealth.monster)" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                {{ normalizedHealth.monster }}
+            </div>
+          </div>
         </div>
       </div>
-      <div class="btn-group btn-group-lg d-flex justify-content-center" role="group" aria-label="Action Buttons">
+      <div class="btn-group btn-group-lg d-flex justify-content-center mt-5" role="group" aria-label="Action Buttons">
         <button type="button" class="btn btn-primary flex-fill" @click="attack">Attack</button>
         <button type="button" class="btn btn-info flex-fill">Special Attack</button>
         <button type="button" class="btn btn-success flex-fill" @click="heal">Heal</button>
