@@ -9,11 +9,24 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="container">
+  <div class="container" id="app">
     <h1 class="display-1">
       Monster Battle
       <small class="text-muted">with Vue.js</small>
     </h1>
+    <div class="row">
+      <div class="col-sm">
+        <h2 class="display-3">You</h2>
+        <p>{{ health.me }}</p>
+      </div>
+      <div class="col-sm">
+        <h2 class="display-3">Monster</h2>
+        <p>{{ health.monster }}</p>
+      </div>
+    </div>
   </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
